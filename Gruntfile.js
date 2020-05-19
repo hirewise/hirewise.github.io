@@ -83,17 +83,21 @@ module.exports = function (s) {
                "build/index.html": "build/index.html"
             }
          }
-      },
-      "gh-pages": {
-         options: {
-            base: "build",
-
-            user: {
-               name: "vishnu667",
-               email: "vishnu667@gmail.com"
-            }
-         },
-         src: ["**"]
       }
-   }), s.loadNpmTasks("grunt-contrib-uglify"), s.loadNpmTasks("grunt-contrib-copy"), s.loadNpmTasks("grunt-contrib-connect"), s.loadNpmTasks("grunt-contrib-watch"), s.loadNpmTasks("grunt-contrib-clean"), s.loadNpmTasks("grunt-contrib-cssmin"), s.loadNpmTasks("grunt-uncss"), s.loadNpmTasks("grunt-processhtml"), s.loadNpmTasks("grunt-contrib-htmlmin"), s.loadNpmTasks("grunt-gh-pages"), s.registerTask("build", ["clean", "uncss", "uglify", "copy", "processhtml"]), s.registerTask("dist", ["clean", "uncss", "uglify", "cssmin", "copy", "processhtml", "htmlmin"]), s.registerTask("serve", ["build", "connect:server", "watch"]), s.registerTask("default", ["serve"]), s.registerTask("publish", ["dist", "gh-pages"])
+   });
+
+   s.loadNpmTasks("grunt-contrib-uglify");
+   s.loadNpmTasks("grunt-contrib-copy");
+   s.loadNpmTasks("grunt-contrib-connect");
+   s.loadNpmTasks("grunt-contrib-watch");
+   s.loadNpmTasks("grunt-contrib-clean");
+   s.loadNpmTasks("grunt-contrib-cssmin");
+   s.loadNpmTasks("grunt-uncss");
+   s.loadNpmTasks("grunt-processhtml");
+   s.loadNpmTasks("grunt-contrib-htmlmin");
+   
+   s.registerTask("build", ["clean", "uncss", "uglify", "copy", "processhtml"]);
+   s.registerTask("dist", ["clean", "uncss", "uglify", "cssmin", "copy", "processhtml", "htmlmin"]);
+   s.registerTask("serve", ["build", "connect:server", "watch"]);
+   s.registerTask("default", ["serve"]);
 };

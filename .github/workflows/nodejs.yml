@@ -1,4 +1,4 @@
-name: Deploy to master
+name: Publishing Site
 on: 
   push:
     branches :
