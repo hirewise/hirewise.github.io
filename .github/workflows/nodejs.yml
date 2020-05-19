@@ -1,5 +1,8 @@
-name: website
-on: push
+name: Deploy to master
+on: 
+  push:
+    branches :
+      - dev
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -8,14 +11,14 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Gen dummy page
+        name: Build pages
         run: npm install && npm run dist
       -
         name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
         with:
-          target_branch: gh-pages
+          target_branch: master
           build_dir: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
