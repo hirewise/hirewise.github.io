@@ -1,6 +1,6 @@
-module.exports = function (s) {
-   s.initConfig({
-      pkg: s.file.readJSON("package.json"),
+module.exports = function (grunt) {
+   grunt.initConfig({
+      pkg: grunt.file.readJSON("package.json"),
       uglify: {
          options: {
             banner: ""
@@ -12,16 +12,24 @@ module.exports = function (s) {
       },
       copy: {
          main: {
-            files: [{
+            files: [
+            {
                src: "src/index.html",
                dest: "build/index.html",
                clone: "tmp"
-            }, {
+            },
+            {
+               src: "CNAME",
+               dest: "build/CNAME",
+               clone: "tmp"
+            }, 
+            {
                cwd: "src/images/",
                src: ["*"],
                dest: "build/images/",
                expand: true
-            }]
+            }
+            ]
          }
       },
       watch: {
@@ -37,8 +45,11 @@ module.exports = function (s) {
       connect: {
          server: {
             options: {
-               livereload: true,
-               port: 9e3,
+               livereload: {
+                  open: true,
+                  appName: 'open'
+               },
+               port: 9000,
                base: "build"
             }
          }
@@ -86,18 +97,18 @@ module.exports = function (s) {
       }
    });
 
-   s.loadNpmTasks("grunt-contrib-uglify");
-   s.loadNpmTasks("grunt-contrib-copy");
-   s.loadNpmTasks("grunt-contrib-connect");
-   s.loadNpmTasks("grunt-contrib-watch");
-   s.loadNpmTasks("grunt-contrib-clean");
-   s.loadNpmTasks("grunt-contrib-cssmin");
-   s.loadNpmTasks("grunt-uncss");
-   s.loadNpmTasks("grunt-processhtml");
-   s.loadNpmTasks("grunt-contrib-htmlmin");
+   grunt.loadNpmTasks("grunt-contrib-uglify");
+   grunt.loadNpmTasks("grunt-contrib-copy");
+   grunt.loadNpmTasks("grunt-contrib-connect");
+   grunt.loadNpmTasks("grunt-contrib-watch");
+   grunt.loadNpmTasks("grunt-contrib-clean");
+   grunt.loadNpmTasks("grunt-contrib-cssmin");
+   grunt.loadNpmTasks("grunt-uncss");
+   grunt.loadNpmTasks("grunt-processhtml");
+   grunt.loadNpmTasks("grunt-contrib-htmlmin");
    
-   s.registerTask("build", ["clean", "uncss", "uglify", "copy", "processhtml"]);
-   s.registerTask("dist", ["clean", "uncss", "uglify", "cssmin", "copy", "processhtml", "htmlmin"]);
-   s.registerTask("serve", ["build", "connect:server", "watch"]);
-   s.registerTask("default", ["serve"]);
+   grunt.registerTask("build", ["clean", "uncss", "uglify", "copy", "processhtml"]);
+   grunt.registerTask("dist", ["clean", "uncss", "uglify", "cssmin", "copy", "processhtml", "htmlmin"]);
+   grunt.registerTask("serve", ["build", "connect:server", "watch"]);
+   grunt.registerTask("default", ["serve"]);
 };
