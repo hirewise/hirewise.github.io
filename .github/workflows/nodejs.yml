@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Gen dummy page
-        run: npm install | npm run dist
+        run: npm install && npm run dist
       -
         name: Deploy to GitHub Pages
         if: success()
